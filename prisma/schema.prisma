@@ -16,3 +16,12 @@ model User {
   createdAt DateTime @default(now())
   refreshToken String?
 }
+
+model Room {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  capacity    Int
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
