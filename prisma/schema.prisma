@@ -2,6 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator seed {
+  provider = "node"
+  run      = "./seed.js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -25,3 +30,4 @@ model Room {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
