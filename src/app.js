@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const prisma = require('./config/prismaClient');
 const userRoutes = require('./routes/User.routes');
 const roomRoutes = require('./routes/Room.routes');
+const bookingRoutes = require('./routes/Booking.routes');
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 // Import des routes
 app.use('/api/users', userRoutes); // routes auth (register, login etc..)
 app.use('/api/rooms', roomRoutes); // routes pour les salles
+app.use('/api/bookings', bookingRoutes); // routes pour les réservations
 
 // Route test
 app.get('/', async (req, res) => {

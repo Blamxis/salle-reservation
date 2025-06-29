@@ -2,24 +2,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator seed {
-  provider = "node"
-  run      = "./seed.js"
-}
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      String   @default("user")
-  createdAt DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password     String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
   refreshToken String?
+
+  bookings Booking[]
 }
 
 model Room {
@@ -29,5 +26,19 @@ model Room {
   isAvailable Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  bookings Booking[]
 }
 
+model Booking {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  room   Room @relation(fields: [roomId], references: [id])
+  roomId Int
+
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+}
