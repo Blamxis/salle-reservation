@@ -9,7 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 4000;
+// Import des routes
+const userRoutes = require('./routes/User.routes');
+app.use('/api/users', userRoutes); // routes auth (register, login)
 
 // Route test
 app.get('/', async (req, res) => {
@@ -24,8 +26,8 @@ async function startServer() {
 
     console.log('✅ Connexion à la base de données réussie');
 
-    app.listen(PORT, () => {
-      console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
+    app.listen(process.env.PORT || 4000, () => {
+      console.log(`✅ Serveur lancé sur http://localhost:${process.env.PORT || 4000}`);
     });
   } catch (error) {
     console.error('❌ Connexion à la base de données échouée :', error.message);
